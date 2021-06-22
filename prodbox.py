@@ -3,7 +3,6 @@ import csv
 class Prodbox:
 
     # CONSTANTES
-
     ID = 0
     PRODUCTION_LINE_ID = 1
     DEVICE_ID = 2
@@ -11,20 +10,17 @@ class Prodbox:
     CREATED_AT = 4
 
     # CONSTRUTOR
-
     def __init__(self, file_name):
         with open(file_name) as file:
             reader = csv.reader(file, delimiter=';')
             self.data = list(reader)
             del self.data[0]
 
-    # tamanho da base de dados
-
+    # retorna o tamanho da base de dados
     def data_size(self):
         return len(self.data)
 
-    # lista todos os items de uma determinada coluna
-
+    # retorna a lista com todos os items de uma determinada coluna
     def list_all(self, column, limit=1000):
         list = []
         count = 0
@@ -35,8 +31,7 @@ class Prodbox:
             count += 1
         return list
 
-    # lista todos os dispositivos
-
+    # returna a lista de todos os dispositivos
     def devices(self):
         list = []
         for row in self.data:
@@ -44,8 +39,7 @@ class Prodbox:
                 list.append(row[self.DEVICE_ID])
         return list
 
-    # lista todas as linhas de produção
-
+    # retorn a lista com todas as linhas de produção
     def lines(self):
         list = []
         for row in self.data:
@@ -53,9 +47,7 @@ class Prodbox:
                 list.append(row[self.PRODUCTION_LINE_ID])
         return list
 
-
     # imprime uma lista, linha a linha
-
     def print(self, list, limit=1000):
         count = 0
         for row in list:
@@ -64,3 +56,27 @@ class Prodbox:
                 break
             count += 1
 
+    # retorna o total de eventos por dispositivo
+    def group_events_by_device(self, device_id):
+        list = []
+        for row in self.data:
+            if(row[self.DEVICE_ID] == device_id):
+                list.append(row)
+        return list
+
+    # retorna um dicionário com a contagem de quantos eventos um dispositivo registrou
+    def count_device_events(self, device_id):
+        events = self.group_events_by_device(device_id)
+        device_active = 0
+        device_inactive = 0
+        for event in events:
+            if event[3] == '1':
+                device_active += 1
+            else:
+                device_inactive += 1
+        return {
+            'device': device_id,
+            'active': device_active,
+            'inactive': device_inactive,
+            'total': len(events)
+        }
