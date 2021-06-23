@@ -29,12 +29,7 @@ for device in devices:
     print("Média de acionamentos:", "%.2f" % average)
     print()
 
-# print('MÉDIA DE ACIONAMENTOS DIÁRIOS POR DISPOSITIVO')
-# devices = prodbox.devices()
-# for device in devices:
-#     print("Dispositivo:", device)
-#     average = prodbox.average_events_by_device(devices[0])
-#     print("%.2f" % average)
+
 # # Sugestão de análise futura:
 # De quanto em quanto tempo as leituras de sensores são feitas em cada dispositivo
 # horários de pico (data/hora que os sensores mais ficam ativados)
