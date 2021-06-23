@@ -90,4 +90,9 @@ class Prodbox:
             dict[event[self.CREATED_AT]] += 1
         return dict
 
-
+    def average_events_by_device(self, device_id):
+        events = self.group_events_by_date_time(device_id)
+        sum = 0
+        for event in events:
+            sum += events[event]
+        return sum / len(events)
