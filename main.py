@@ -17,6 +17,15 @@ print()
 print('EVENTOS DE DISPOSITIVOS')
 for device in devices:
     print(prodbox.count_device_events(device))
+print()
+
+print('EVENTOS DE DISPOSITIVOS AGRUPADOS POR DATA HORA')
+for device in devices:
+    print("Dispositivo:", device)
+    events = prodbox.group_events_by_date_time(device)
+    print(dict(events))
+    print("Total de horários:", len(events))
+    print()
 
 # Sugestão de análise futura:
 # De quanto em quanto tempo as leituras de sensores são feitas em cada dispositivo

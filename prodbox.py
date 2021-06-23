@@ -1,4 +1,5 @@
 import csv
+from collections import defaultdict
 
 class Prodbox:
 
@@ -80,3 +81,13 @@ class Prodbox:
             'inactive': device_inactive,
             'total': len(events)
         }
+
+    # retorna um dicionário com a soma de eventos agrupados pela data e hora
+    def group_events_by_date_time(self, device_id):
+        dict = defaultdict(int)
+        events = self.group_events_by_device(device_id)
+        for event in events:
+            dict[event[self.CREATED_AT]] += 1
+        return dict
+
+
